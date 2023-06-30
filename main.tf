@@ -52,6 +52,7 @@ variable workload_access_credentials_b64 {
 
 provider "google" {
   credentials = base64decode(var.gcp_credentials_b64)
+  project     = var.gcp_project
 }
 
 resource "google_storage_bucket" "bucket" {
