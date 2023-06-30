@@ -16,6 +16,28 @@
   The workload needs to access the created bucket. Ideally we would create a service account for the workload and grant it access to the bucket.
   However for this simple implementation we will just proxy the workload credentials to the bucket.
   The credentials used will be created externally and scoped to only read/write buckets in this gcp project.
+
+ Setup Resource Definition:
+
+ Resource Type: S3
+ Driver: Terraform
+ URL: https://github.com/humanitec-poc-org-8367/gcp-bucket-tf.git
+ Revision: refs/heads/main
+
+ Inputs (Change GCP_PROJECT_ID to your GCP project ID):
+  {
+    "app_name": "${context.app.id}",
+    "bucket_location": "US",
+    "env_name": "${context.env.id}",
+    "gcp_project": "GCP_PROJECT_ID",
+    "resource_name": "${context.res.id}"
+  }
+
+  Secrets:
+  {
+    "gcp_credentials_b64": "BASE64_ENCODED_GCP_CREDENTIALS",
+    "workload_access_credentials_b64": "BASE64_ENCODED_WORKLOAD_CREDENTIALS"
+  }
 */
 
 variable gcp_credentials_b64 {
