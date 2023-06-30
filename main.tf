@@ -51,7 +51,7 @@ variable workload_access_credentials_b64 {
 }
 
 locals {
-  resource_id = var.resource_name.split(".")[3]
+  resource_id = split(".", var.resource_name)[3]
 }
 
 provider "google" {
