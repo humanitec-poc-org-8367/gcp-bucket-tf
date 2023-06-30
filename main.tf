@@ -56,7 +56,7 @@ provider "google" {
 }
 
 resource "google_storage_bucket" "bucket" {
-  name          = replace(lower("${var.app_name}-${var.env_name}-${var.resource_name}"), " ", "_")
+  name          = replace(replace(lower("${var.app_name}-${var.env_name}-${var.resource_name}"), " ", "_"), ".", "_")
   location      = var.bucket_location
   force_destroy = true // Allow terraform to destroy the bucket.
 
