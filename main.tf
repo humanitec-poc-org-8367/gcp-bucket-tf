@@ -50,13 +50,17 @@ variable workload_access_credentials_b64 {
   description = "Credentials for the workload to access created buckets"
 }
 
+locals {
+  resource_id = var.resource_name.split(".")[3]
+}
+
 provider "google" {
   credentials = base64decode(var.gcp_credentials_b64)
   project     = var.gcp_project
 }
 
 resource "google_storage_bucket" "bucket" {
-  name          = replace(replace(lower("${var.app_name}-${var.env_name}-${var.resource_name}"), " ", "_"), ".", "_")
+  name          = replace(replace(lower("${var.app_name}-${var.env_name}-${locals.resource_id}"), " ", "_"), ".", "_")
   location      = var.bucket_location
   force_destroy = true // Allow terraform to destroy the bucket.
 
